@@ -1,0 +1,231 @@
+'''
+  =======================================
+  Π Author Name  =====>  Alok Harashit Mistry  Π
+  =======================================
+  
+'''
+
+# Importing Modules
+
+import random
+import os
+
+# Main Function
+def main():
+
+	# Sum Global verieble For Game
+	
+	level =	1
+	score =	0
+	chance =	14
+	hchance =	14
+	point =	10
+	read =	""
+	n =	""
+	fn =	random.randint(1,100)
+	nonType =	type("a")
+	dis =	False
+	path =	f"{os.getcwd()}/score.txt"
+	fpath =	os.path.exists(path)
+	gameOver =	False
+	
+	#space for centering words
+	full =	"-"*59
+	sp =	" "*20 #------->	For ---->	"Your chance left""
+	sp2 =	" "*21 #--->	for --->	"Enter A Number : "
+	sp3 =	" "*12 #---> for --->Your Number is too low
+	                         #--->	And Your Number is too High
+	sp4 =	" "*23 #--->	"ry Again : "
+	sp5 =	"-"*25 #--->	Game Over
+	sp6 =	"-"*19 #------>	You are loss The Game
+	sp7 =	"-"*8 #----------------------------|
+	       # Your used chance is 5 And Your Score is 90
+	sp8 =	" "*19 # ----->	Please Enter A Number
+	sp9 =	"-"*20 # ----->	Make by Alok Mistry
+	
+	#Creat Game File
+	
+	if dis ==	fpath:
+		with open("score.txt", "w") as f:
+			f.write("0")
+			
+	# For Read File 
+	
+	with open("score.txt", "r") as f:
+		read =	f.read()
+	
+	# Function Area
+	
+	# For New Score progam
+	
+	def newscore(a, b):
+		if a >	int(b):
+			with open("score.txt", "w") as f:
+				f.write(str(a))
+	
+	# For Clear Screen
+	def cls():
+		os.system("clear")
+	cls()
+	
+	# For Game Over
+	def end():
+		if chance ==	0:
+			cls()
+			print(f"\n{sp5}Game Over{sp5}")
+			print(f"{sp6}You are loss The Game{sp6}")
+			print(full)
+			print(f"{sp9}Thanks For Playing{sp9}")
+			print(full)
+			print(f"{sp9}Make By Alok Mistry{sp9}")
+			print(full)
+			newscore(score, read)
+			gameOver =	True
+			exit()
+	# Heading And Title
+	print("\n")
+	print(full)
+	print("----------------------Welcom To Ngame----------------------")
+	print(full)
+	print(f"{sp9}Make By Alok Mistry{sp9}")
+	print(full)
+	print("\n")
+	
+	
+	# Main Manu
+	
+	print("1) ---------->	Start The Game \n")
+	print("2) ---------->	High Score \n")
+		
+		
+	choose =	input("Choose On of The Above : ")
+	a =	choose
+	print("\n")
+	print(full)
+	
+	# Conditions & Menu Functions
+	
+	if choose ==	"1":
+	
+		#Game Start
+		
+				#Error solve coding if user input not intiger value
+				# For get 1 to 100 intiger value
+		ii =	1
+		while ii <=	100:
+			n +=	str(ii)
+			ii +=	1
+				
+		print("\n")
+		print(f"Level =	{level}")
+		print(f"\n{sp}Your Chance Left {chance}")
+		num =	input(f"{sp2}Enter a Number From 1 to 100 : ")
+	
+		#Main loop Start
+		
+		while not gameOver:
+			
+			end()
+			
+			# Exit program For Exit The Game
+			if num ==	"exit":
+				gameOver =	True
+				
+			#coding For user input value type for sovle error
+			if type(num) ==	nonType:
+				if num not in n:
+					
+					# Cheat Code Programing
+					
+					if num ==	"c":
+						point +=	point
+						print(f"{sp8}Please Enter A Number")
+						print(full)
+						print(f"\n{sp}Your Chance Left {chance}")
+						num =	input(f"{sp4}Try Again : ")
+						continue
+					else:
+						print(f"{sp8}Please Enter A Number")
+						print(full)
+						print(f"\n{sp}Your Chance Left {chance}")
+						num =	input(f"{sp4}Try Again : ")
+						continue
+				else:
+					num = int(num)
+					
+			# Main Program For Game
+			
+			# if user used here maximum chance
+				# If user guess small number
+			if num < fn:
+				chance -=	1
+				os.system("clear")
+				print(full)
+				print(f"{sp3}Your Entered Number {num} is too low")
+				print(full)
+				end()
+				print(f"Level =	{level}")
+				print(f"\n{sp}Your Chance Left {chance}")
+				num =	input(f"{sp4}Try Again : ")
+							
+			# if user guess large number
+			elif num >	fn:
+				chance -=	1
+				os.system("clear")
+				print(full)
+				print(f"{sp3}Your Entered Number {num} is too High")
+				print(full)
+				end()
+				print(f"Level =	{level}")
+				print(f"\n{sp}Your Chance Left {chance}")
+				num =	input(f"{sp4}Try Again : ")
+						
+			# if user win the game
+			elif num ==	fn:
+				chance -=	1
+				score =	score + ((hchance-(hchance-chance))*point)
+				newscore(score, read)
+				cls()
+				print("\n")
+				print("--------------------You are win The Game------------------ ")
+				print(f"{sp7}Your used chance is {hchance-chance} And Your Score is {score}{sp7}\n")
+				print(full)
+					
+				# For start again game and increase hadness
+				point =	point*2
+				hchance  -=	2
+				chance =	hchance
+				level +=	1
+				print("Congratulation Your Level Is Up")
+				print(f"Level =	{level}")
+				print(f"\n{sp}Your Chance Left {chance}")
+				num =	input(f"{sp2}Enter a Number : ")
+				fn =	random.randint(1,100)
+				continue
+				#gameOver =	True
+			
+	elif choose ==	"2":
+		with open("score.txt", "r") as f:
+			read =	f.read()
+			print("\n")
+			print(f"High Score =	{read}")
+			print("\n")
+			print(full)
+			print("\n")
+			print("Press y to Go Back : \n")
+			button =	input("Press y/c : ")
+			if button.lower() ==	"y":
+				os.system("clear")
+				main()
+			else:
+				print("\n")
+				os.system("clear")
+	else :
+		print("Choose Right Number ")
+		print(full)
+		print(f"{sp9}Make By Alok Mistry{sp9}")
+		print(full)
+		main()
+		
+main()
+	
